@@ -27,6 +27,7 @@
     "wisdom": "npm run build",
     "6to5": "buble lib -o legacy",
     "build": "redrun 6to5 legacy",
+    "prebuild": "rimraf legacy",
     "legacy": "echo \"module.exports = require('./fs-copy-file');\" > legacy/index.js"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "nyc": "^11.0.2",
     "pullout": "^1.0.1",
     "redrun": "^5.9.2",
+    "rimraf": "^2.6.2",
     "tape": "^4.2.0",
     "tar-fs": "^1.14.0"
   }
