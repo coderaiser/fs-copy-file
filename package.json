@@ -1,0 +1,51 @@
+{
+  "name": "fs-copy-file",
+  "version": "1.0.0",
+  "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
+  "description": "fs.copyFile ponyfill",
+  "homepage": "http://github.com/coderaiser/fs-copy-file",
+  "keywords": [
+    "ponyfill",
+    "copy",
+    "file",
+    "copyFile",
+    "fs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coderaiser/fs-copy-file.git"
+  },
+  "scripts": {
+    "test": "tape test/*.js",
+    "lint": "redrun lint:*",
+    "lint:lib": "eslint lib",
+    "lint:test": "eslint --rule 'no-console:0' test",
+    "watch:test": "npm run watcher -- \"npm test\"",
+    "watcher": "nodemon -w lib -w test -x",
+    "coverage": "nyc npm test",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "wisdom": "npm run build",
+    "6to5": "buble lib -o legacy",
+    "build": "redrun 6to5 legacy",
+    "legacy": "echo \"module.exports = require('./fs-copy-file');\" > legacy/index.js"
+  },
+  "dependencies": {
+    "pipe-io": "^2.0.5"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "main": "legacy/fs-copy-file.js",
+  "devDependencies": {
+    "buble": "^0.15.1",
+    "coveralls": "^2.11.6",
+    "eslint": "^4.0.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.0.2",
+    "pullout": "^1.0.1",
+    "redrun": "^5.9.2",
+    "tape": "^4.2.0",
+    "tar-fs": "^1.14.0"
+  }
+}
