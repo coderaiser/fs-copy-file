@@ -1,0 +1,5 @@
+2017.09.13, v1.0.1
+
+fix:
+- (fs-copy-file) clear legacy
+
