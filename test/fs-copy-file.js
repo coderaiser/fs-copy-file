@@ -230,7 +230,7 @@ test('copyFile: bad flags', (t) => {
     
     const fn = () => copyFile(src, dest, 4, noop);
     
-    fn.copyFile = original;
+    fs.copyFile = original;
     t.throws(fn, /EINVAL: invalid argument, copyfile -> '2'/, 'should throw');
     t.end();
 });
