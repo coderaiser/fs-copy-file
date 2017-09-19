@@ -38,6 +38,10 @@ const { COPYFILE_EXCL } = copyFile.constants;
 fs.copyFile('source.txt', 'destination.txt', COPYFILE_EXCL, callback);
 ```
 
+## Related
+
+- [fs-copy-file-sync](https://github.com/coderaiser/fs-copy-file-sync "fs-copy-file-sync") - Synchronously copies src to dest.
+
 ## License
 MIT
 
