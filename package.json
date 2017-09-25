@@ -39,7 +39,7 @@
   },
   "main": "legacy/fs-copy-file.js",
   "devDependencies": {
-    "buble": "^0.15.1",
+    "buble": "^0.16.0",
     "coveralls": "^2.11.6",
     "eslint": "^4.0.0",
     "nodemon": "^1.11.0",
