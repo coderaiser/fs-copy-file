@@ -18,8 +18,7 @@
   "scripts": {
     "test": "tape test/*.js",
     "lint": "redrun lint:*",
-    "lint:lib": "eslint lib",
-    "lint:test": "eslint --rule 'no-console:0' test",
+    "lint:lib": "eslint lib test",
     "watch:test": "npm run watcher -- \"npm test\"",
     "watcher": "nodemon -w lib -w test -x",
     "coverage": "nyc npm test",

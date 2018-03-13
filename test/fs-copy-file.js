@@ -185,8 +185,7 @@ test('copyFile: pipe: COPYFILE_EXCL', (t) => {
     
     const copyFile = rerequire('../lib/fs-copy-file');
     
-    copyFile(src, dest, COPYFILE_EXCL, (error) => {
-        console.log(error);
+    copyFile(src, dest, COPYFILE_EXCL, () => {
         const data = fs.readFileSync(dest, 'utf8');
         fs.unlinkSync(dest);
         
