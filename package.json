@@ -1,6 +1,6 @@
 {
   "name": "fs-copy-file",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "fs.copyFile ponyfill",
   "homepage": "http://github.com/coderaiser/fs-copy-file",
