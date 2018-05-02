@@ -22,23 +22,17 @@
     "watch:test": "npm run watcher -- \"npm test\"",
     "watcher": "nodemon -w lib -w test -x",
     "coverage": "nyc npm test",
-    "report": "nyc report --reporter=text-lcov | coveralls",
-    "wisdom": "npm run build",
-    "6to5": "buble lib -o legacy",
-    "build": "redrun 6to5 legacy",
-    "prebuild": "rimraf legacy",
-    "legacy": "echo \"module.exports = require('./fs-copy-file');\" > legacy/index.js"
+    "report": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "pipe-io": "^2.0.5"
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=4"
   },
-  "main": "legacy/fs-copy-file.js",
+  "main": "lib/fs-copy-file.js",
   "devDependencies": {
-    "buble": "^0.19.2",
     "coveralls": "^3.0.0",
     "eslint": "^4.0.0",
     "nodemon": "^1.11.0",
