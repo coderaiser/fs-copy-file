@@ -25,7 +25,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
-    "pipe-io": "^2.0.5"
+    "pipe-io": "^3.0.0"
   },
   "license": "MIT",
   "engines": {
