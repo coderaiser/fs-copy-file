@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "node/no-unsupported-features": 0
+    },
+    "extends": [
+        ".eslintrc",
+    ],
+}
