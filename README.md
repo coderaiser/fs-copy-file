@@ -3,7 +3,12 @@ fs-copy-file [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]]
 Node.js v8.5.0 [fs.copyFile](https://nodejs.org/dist/latest-v8.x/docs/api/fs.html#fs_fs_copyfile_src_dest_flags_callback) [ponyfill](https://ponyfill.com).
 
 Asynchronously copies `src` to `dest`. By default, `dest` is overwritten if it already exists. No arguments other than a possible exception are given to the callback function.
-`flags` is an optional integer that specifies the behavior of the copy operation. The only supported flag is `COPYFILE_EXCL`, which causes the copy operation to fail if dest already exists.
+
+`flags` is an optional integer that specifies the behavior of the copy operation. It is possible to create a mask consisting of the bitwise OR of two or more values (e.g. `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`).
+
+- `fs.constants.COPYFILE_EXCL` - The copy operation will fail if dest already exists.
+- `fs.constants.COPYFILE_FICLONE` - The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then a fallback copy mechanism is used.
+- `fs.constants.COPYFILE_FICLONE_FORCE` - The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then the operation will fail.
 
 ## Install
 
