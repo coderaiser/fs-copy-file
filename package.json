@@ -26,7 +26,7 @@
     "report": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
-    "@cloudcmd/copy-file": "^1.0.0"
+    "@cloudcmd/copy-file": "^1.1.0"
   },
   "license": "MIT",
   "engines": {
