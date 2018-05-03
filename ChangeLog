@@ -1,3 +1,10 @@
+2018.05.03, v2.1.0
+
+feature:
+- (fs-copy-file) add mask support introduce in node v10
+- (travis) add node v10
+
+
 2018.05.02, v2.0.0
 
 feature:
