@@ -1,6 +1,6 @@
 fs-copy-file [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 =========
-Node.js v8.5.0 [fs.copyFile](https://nodejs.org/dist/latest-v8.x/docs/api/fs.html#fs_fs_copyfile_src_dest_flags_callback) [ponyfill](https://ponyfill.com).
+Node.js v8.5.0 [fs.copyFile](https://nodejs.org/dist/latest-v10.x/docs/api/fs.html#fs_fs_copyfile_src_dest_flags_callback) [ponyfill](https://ponyfill.com).
 
 Asynchronously copies `src` to `dest`. By default, `dest` is overwritten if it already exists. No arguments other than a possible exception are given to the callback function.
 
