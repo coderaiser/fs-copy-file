@@ -6,8 +6,6 @@ const test = require('tape');
 const tryToCatch = require('try-to-catch');
 const {promisify} = require('util');
 
-const copyFile = require('..');
-
 const {COPYFILE_EXCL} = fs.constants;
 
 const fixture = path.join(__dirname, 'fixture');
@@ -51,7 +49,7 @@ test('copyFile: no dest', async (t) => {
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = rerequire('..');
     const _copyFile = promisify(copyFile);
     
     const [e] = await tryToCatch(_copyFile, src, dest);
@@ -68,7 +66,7 @@ test('copyFile: no src', async (t) => {
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = rerequire('..');
     const _copyFile = promisify(copyFile);
     
     const [e] = await tryToCatch(_copyFile, src, dest);
@@ -79,115 +77,129 @@ test('copyFile: no src', async (t) => {
     t.end();
 });
 
-test('copyFile: no src', (t) => {
+test('copyFile: no src', async(t) => {
     const src = path.join(fixture, String(Math.random()));
     const dest = path.join(fixture, 'dest');
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
     
-    copyFile(src, dest, (error) => {
-        fs.copyFile = original;
-        t.equal(error.code, 'ENOENT', 'should not find file');
-        t.end();
-    });
+    const copyFile = promisify(rerequire('..'));
+    const [e] = await tryToCatch(copyFile, src, dest);
+    
+    fs.copyFile = original;
+    
+    t.equal(e.code, 'ENOENT', 'should not find file');
+    t.end();
 });
 
-test('copyFile', (t) => {
+test('copyFile', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
     
-    copyFile(src, dest, () => {
-        const data = fs.readFileSync(dest, 'utf8');
-        fs.unlinkSync(dest);
-        fs.copyFile = original;
-        
-        t.equal(data, 'hello\n', 'should copy file');
-        t.end();
-    });
+    const copyFile = promisify(rerequire('..'));
+    await tryToCatch(copyFile, src, dest);
+    
+    const data = fs.readFileSync(dest, 'utf8');
+    fs.unlinkSync(dest);
+    fs.copyFile = original;
+    
+    t.equal(data, 'hello\n', 'should copy file');
+    t.end();
 });
 
-test('copyFile: EEXIST', (t) => {
+test('copyFile: original', async (t) => {
+    const src = path.join(fixture, 'src');
+    const dest = path.join(fixture, 'dest');
+    
+    const copyFile = promisify(rerequire('..'));
+    await tryToCatch(copyFile, src, dest);
+    
+    const data = fs.readFileSync(dest, 'utf8');
+    fs.unlinkSync(dest);
+    
+    t.equal(data, 'hello\n', 'should copy file');
+    t.end();
+});
+
+test('copyFile: EEXIST', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     const {COPYFILE_EXCL} = fs.constants;
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
     
     fs.writeFileSync(dest, 'hello');
     
-    copyFile(src, dest, COPYFILE_EXCL, (error) => {
-        fs.copyFile = original;
-        fs.unlinkSync(dest);
-        t.equal(error.code, 'EEXIST', 'should return error');
-        t.end();
-    });
+    const copyFile = promisify(rerequire('..'));
+    const [e] = await tryToCatch(copyFile, src, dest, COPYFILE_EXCL);
+    
+    fs.copyFile = original;
+    fs.unlinkSync(dest);
+    
+    t.equal(e.code, 'EEXIST', 'should return error');
+    t.end();
 });
 
-test('copyFile: pipe', (t) => {
+test('copyFile: pipe', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     
     const original = fs.copyFile;
     fs.copyFile = null;
     
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = promisify(rerequire('..'));
+    await tryToCatch(copyFile, src, dest, COPYFILE_EXCL);
     
-    copyFile(src, dest, () => {
-        const data = fs.readFileSync(dest, 'utf8');
-        fs.unlinkSync(dest);
-        
-        fs.copyFile = original;
-        t.equal(data, 'hello\n', 'should copy file');
-        t.end();
-    });
+    const data = fs.readFileSync(dest, 'utf8');
+    fs.unlinkSync(dest);
+    
+    fs.copyFile = original;
+    t.equal(data, 'hello\n', 'should copy file');
+    t.end();
 });
 
-test('copyFile: EEXIST: pipe', (t) => {
+test('copyFile: EEXIST: pipe', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     
     const original = fs.copyFile;
     fs.copyFile = null;
-    const copyFile = rerequire('../lib/fs-copy-file');
     
     fs.writeFileSync(dest, 'hello');
     
-    copyFile(src, dest, COPYFILE_EXCL, (error) => {
-        fs.unlinkSync(dest);
-        fs.copyFile = original;
-        t.equal(error.code, 'EEXIST', 'should return error');
-        t.end();
-    });
+    const copyFile = promisify(rerequire('..'));
+    const [e] = await tryToCatch(copyFile, src, dest, COPYFILE_EXCL);
+    
+    fs.unlinkSync(dest);
+    fs.copyFile = original;
+    t.equal(e.code, 'EEXIST', 'should return error');
+    t.end();
 });
 
-test('copyFile: pipe: COPYFILE_EXCL', (t) => {
+test('copyFile: pipe: COPYFILE_EXCL', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     
     const original = fs.copyFile;
     fs.copyFile = null;
     
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = promisify(rerequire('..'));
+    await tryToCatch(copyFile, src, dest, COPYFILE_EXCL);
     
-    copyFile(src, dest, COPYFILE_EXCL, () => {
-        const data = fs.readFileSync(dest, 'utf8');
-        fs.unlinkSync(dest);
-        
-        fs.copyFile = original;
-        t.equal(data, 'hello\n', 'should copy file');
-        t.end();
-    });
+    const data = fs.readFileSync(dest, 'utf8');
+    fs.unlinkSync(dest);
+    
+    fs.copyFile = original;
+    t.equal(data, 'hello\n', 'should copy file');
+    t.end();
 });
 
-test('copyFile: COPYFILE_EXCL: stat: error', (t) => {
+test('copyFile: COPYFILE_EXCL: stat: error', async (t) => {
     const src = path.join(fixture, 'src');
     const dest = path.join(fixture, 'dest');
     
@@ -195,19 +207,16 @@ test('copyFile: COPYFILE_EXCL: stat: error', (t) => {
     const {stat} = fs;
     
     fs.copyFile = null;
-    fs.stat = (name, cb) => {
-        cb(Error('hello'));
-    }
+    fs.stat = (name, cb) => cb(Error('hello'));
     
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = promisify(rerequire('..'));
+    const [e] = await tryToCatch(copyFile, src, dest, COPYFILE_EXCL);
     
-    copyFile(src, dest, COPYFILE_EXCL, (error) => {
-        fs.copyFile = original;
-        fs.stat = stat;
-        
-        t.equal(error.message, 'hello', 'should return stat error');
-        t.end();
-    });
+    fs.copyFile = original;
+    fs.stat = stat;
+    
+    t.equal(e.message, 'hello', 'should return stat error');
+    t.end();
 });
 
 test('copyFile: bad flags', (t) => {
@@ -217,7 +226,7 @@ test('copyFile: bad flags', (t) => {
     const original = fs.copyFile;
     fs.copyFile = null;
     
-    const copyFile = rerequire('../lib/fs-copy-file');
+    const copyFile = rerequire('..');
     
     const fn = () => copyFile(src, dest, 4, noop);
     
