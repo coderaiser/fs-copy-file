@@ -52,12 +52,12 @@ MIT
 
 [NPMIMGURL]:                https://img.shields.io/npm/v/fs-copy-file.svg?style=flat
 [BuildStatusIMGURL]:        https://img.shields.io/travis/coderaiser/fs-copy-file/master.svg?style=flat
-[DependencyStatusIMGURL]:   https://img.shields.io/gemnasium/coderaiser/fs-copy-file.svg?style=flat
+[DependencyStatusIMGURL]:   https://img.shields.io/david/coderaiser/fs-copy-file.svg?style=flat
 [LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
 [CoverageIMGURL]:           https://coveralls.io/repos/coderaiser/fs-copy-file/badge.svg?branch=master&service=github
 [NPMURL]:                   https://npmjs.org/package/fs-copy-file "npm"
 [BuildStatusURL]:           https://travis-ci.org/coderaiser/fs-copy-file  "Build Status"
-[DependencyStatusURL]:      https://gemnasium.com/coderaiser/fs-copy-file "Dependency Status"
+[DependencyStatusURL]:      https://david-dm.org/coderaiser/fs-copy-file "Dependency Status"
 [LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
 [CoverageURL]:              https://coveralls.io/github/coderaiser/fs-copy-file?branch=master
 
